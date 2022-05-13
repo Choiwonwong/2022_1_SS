@@ -71,6 +71,6 @@ int main()
     a_star(initial,N,blankxc,blankyc);
     e=clock();
 
-    cout<<"Time taken to execute "<<(double)(e-start)/CLOCKS_PER_SEC<<" seconds"<<endl << endl;
+    cout<< endl << endl << "Time taken to execute "<<(double)(e-start)/CLOCKS_PER_SEC<<" seconds"<<endl << endl;
     return 0;
 }
