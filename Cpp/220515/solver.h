@@ -6,6 +6,7 @@ void a_star(int **initial,int N,int blankxc,int blankyc)
 {
     int xc[4]={0,0,1,-1}; // x axis move array 선언
     int yc[4]={1,-1,0,0}; // y axis move array 선언
+    int previous_direction;
 
     priority_queue<node*,vector<node*>,compare> pq; // 우선순위 큐 pq 선언
     map <vector<int>,int>m; // m이라는 map 클래스 생성, key:vector, value: int
@@ -28,9 +29,11 @@ void a_star(int **initial,int N,int blankxc,int blankyc)
 
         if(curr->heuri==0) // 정답이랑 같으면: 바꿀게 없으면 끝
         {   
+            cout << "Direction Sequence: ";
             print_direction(curr); // 방향 출력
             // cout << endl;
             // print(curr,N); // 노드 출력
+            cout << endl << endl << "Depth: " << curr->level; 
             return;
         }
 
@@ -38,7 +41,13 @@ void a_star(int **initial,int N,int blankxc,int blankyc)
         int by=curr->blanky; // 새로운 blank yais -> by
         for(int i=0;i<4;i++)
         {   
-            // 모든 방향으로 자식 노드를 만든다.
+            previous_direction = curr->direction;
+            // 모든 방향으로 자식 노드를 만든다. -> 해결해야함.
+            if(previous_direction == 0 && i == 1) continue;
+            else if(previous_direction == 1 && i == 0) continue;
+            else if(previous_direction == 2 && i == 3) continue;
+            else if(previous_direction == 3 && i == 2) continue;
+            
             if(is_valid(bx+xc[i],by+yc[i],N)) // 좌표값을 벗어나지 않았으면
             {   // 자식 노드 생성 -> 자식노드 값: mat, 부모 노드: curr, 깊이 +1, 현재 blank 좌표, 바꿀 blank 좌표
                 node* child=newnode(curr->mat,curr,curr->level+1,bx,by,bx+xc[i],by+yc[i],N, i);

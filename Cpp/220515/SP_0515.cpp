@@ -3,20 +3,11 @@
 #include "solver.h"
 using namespace std;
 
-int N = 3;
-
-void printBorad(int board[][3], int size){
-    for(int i = 0; i <size; i++){
-        printf("[");
-        for(int j = 0; j <size; j++){
-            printf("%d ",board[i][j]);
-        }
-        cout << "\b]" << endl;
-    }
-}
-
 int main()
 {
+    int N = 3;
+    // int N = 4;
+
     // int input_matrix[3][3] = { // LUURDDLLUURDRD
     //     {4, 2, 1}, 
     //     {7, 6, 3},
@@ -53,11 +44,63 @@ int main()
     //     {0, 7, 8}
     //     };
 
-    printBorad(input_matrix, N);
+    // int input_matrix[3][3] = {
+    //     {4, 2, 1}, 
+    //     {7, 6, 3},
+    //     {8, 5, 0}
+    //     };
+    
+    // int input_matrix[3][3] = {
+    //     {7, 4, 2}, 
+    //     {5, 6, 1},
+    //     {3, 8, 0}
+    //     };
+
+    // int input_matrix[3][3] = {
+    //     {1, 2, 3}, 
+    //     {4, 5, 6},
+    //     {0, 7, 8}
+    //     };
+
+    // 4*4
+
+    // int input_matrix[4][4] = {
+    //     {14, 7, 15, 3}, 
+    //     {4, 13, 6, 8},
+    //     {1, 9, 5, 2},
+    //     {10, 12, 11, 0}
+    //     };
+
+    // int input_matrix[4][4] = {
+    //     {1, 2, 3, 4}, 
+    //     {5, 6, 7, 8},
+    //     {9, 10, 11, 12},
+    //     {0, 13, 14, 15}
+    //     };
+
+    // int input_matrix[4][4] = {
+    //     {15, 10, 14, 1}, 
+    //     {9, 5, 6, 7},
+    //     {11, 4, 2, 13},
+    //     {3, 8, 12, 0}
+    //     };
+
+    // int input_matrix[4][4] = {
+    //     {7, 11, 1, 5}, 
+    //     {6, 15, 2, 8},
+    //     {4, 13, 3, 10},
+    //     {9, 12, 14, 0}
+    //     };
+
+    // int input_matrix[4][4] = {
+    //     {5, 4, 10, 3}, 
+    //     {8, 11, 2, 14},
+    //     {7, 15, 6, 13},
+    //     {9, 1, 12, 0}
+    //     };
 
     int **initial=new int*[N];
     int blankxc,blankyc;
-
 
     for(int i=0;i<N;i++)
     {
@@ -72,6 +115,8 @@ int main()
             }
         }
     }
+
+    printMatrix(initial, N);
 
     clock_t start,e;
     start=clock();
