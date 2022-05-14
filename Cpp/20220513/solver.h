@@ -6,15 +6,17 @@ void a_star(int **initial,int N,int blankxc,int blankyc)
 {
     int xc[4]={0,0,1,-1}; // x axis move array 선언
     int yc[4]={1,-1,0,0}; // y axis move array 선언
+    int previous_direction;
 
     priority_queue<node*,vector<node*>,compare> pq; // 우선순위 큐 pq 선언
     map <vector<int>,int>m; // m이라는 map 클래스 생성, key:vector, value: int
 
-    node* root=newnode(initial,NULL,0,blankxc,blankyc,blankxc,blankyc,N, 100); // 루트 노트 생성
+    node* root=newnode(initial, NULL,0,blankxc,blankyc,blankxc,blankyc,N, 100); // 루트 노트 생성
     pq.push(root); // PQ에 root push
 
     while(!pq.empty())
-    { 
+    {   
+
         node* curr=pq.top();  // PQ의 가장 높은 우선순위를 가진 노드 curr에 저장
         pq.pop(); // 해당 노드 삭제
 
@@ -28,18 +30,27 @@ void a_star(int **initial,int N,int blankxc,int blankyc)
 
         if(curr->heuri==0) // 정답이랑 같으면: 바꿀게 없으면 끝
         {   
+            cout << "Direction Sequence: ";
             print_direction(curr); // 방향 출력
-            // cout << endl;
-            // print(curr,N); // 노드 출력
+            cout << endl;
+            print(curr,N); // 노드 출력
+
+            cout << endl << endl << "Depth: " << curr->level; 
             return;
         }
 
         int bx=curr->blankx; // 새로운 blank xais -> bx
         int by=curr->blanky; // 새로운 blank yais -> by
-        for(int i=0;i<4;i++)
+        for(int i=0;i<4;i++) // 좌표값을 벗어나지 않고, 기존 방향을 고려하여 계산해야하는 방향일 때 일어나게 만들어보자.
         {   
-            // 모든 방향으로 자식 노드를 만든다.
-            if(is_valid(bx+xc[i],by+yc[i],N)) // 좌표값을 벗어나지 않았으면
+            previous_direction = curr->direction;
+            // 모든 방향으로 자식 노드를 만든다. -> 해결해야함.
+            if(previous_direction == 0 && i == 1) continue;
+            else if(previous_direction == 1 && i == 0) continue;
+            else if(previous_direction == 2 && i == 3) continue;
+            else if(previous_direction == 3 && i == 2) continue;
+
+            if(is_valid(bx+xc[i],by+yc[i],N)) // 좌표값을 벗어나지 않았으면 
             {   // 자식 노드 생성 -> 자식노드 값: mat, 부모 노드: curr, 깊이 +1, 현재 blank 좌표, 바꿀 blank 좌표
                 node* child=newnode(curr->mat,curr,curr->level+1,bx,by,bx+xc[i],by+yc[i],N, i);
                 vector<int> v; // v 벡터 생성
@@ -57,6 +68,7 @@ void a_star(int **initial,int N,int blankxc,int blankyc)
             }
         }
     }
+    
 }
 
 // 처음에는 루트 노드만 넣고 node를 생성함.

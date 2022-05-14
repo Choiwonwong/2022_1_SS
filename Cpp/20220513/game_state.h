@@ -131,6 +131,7 @@ void print(node* curr,int N)
 
 void print_direction(node* curr)
 {   
+    
     if(curr->parent==NULL)
         return;
 
@@ -139,4 +140,15 @@ void print_direction(node* curr)
     // cout<<curr->direction;
     cout<<di[curr->direction];
     return;
+}
+
+void printMatrix(int** board, int N){
+    for(int i = 0; i <N; i++){
+        cout<<'[';
+        for(int j=0;j<N;j++)
+        {
+                cout<< board[i][j]<<" ";
+        }
+        cout << "\b]" << endl;
+    }
 }
